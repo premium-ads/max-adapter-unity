@@ -14,10 +14,26 @@ extern "C" {
         if (!adapterClass) {
             adapterClass = NSClassFromString(@"PremiumAdsAdapter");
         }
-        if (adapterClass && [adapterClass respondsToSelector:@selector(setDebug:)]) {
-            [adapterClass performSelector:@selector(setDebug:) withObject:@(enabled)];
-        } else {
+        if (!adapterClass) {
             NSLog(@"[PremiumAdsUnityBridge] PremiumAdsAdapter class not found");
+            return;
         }
+
+        SEL selector = @selector(setDebug:);
+        if (![adapterClass respondsToSelector:selector]) {
+            NSLog(@"[PremiumAdsUnityBridge] setDebug: selector not found on %@", adapterClass);
+            return;
+        }
+
+        // Dispatch via NSInvocation rather than performSelector:withObject:,
+        // since setDebug: takes a primitive BOOL and performSelector:withObject:
+        // only supports a single object-typed argument.
+        NSMethodSignature *signature = [adapterClass methodSignatureForSelector:selector];
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        invocation.target = adapterClass;
+        invocation.selector = selector;
+        BOOL boolEnabled = enabled;
+        [invocation setArgument:&boolEnabled atIndex:2];
+        [invocation invoke];
     }
 }
