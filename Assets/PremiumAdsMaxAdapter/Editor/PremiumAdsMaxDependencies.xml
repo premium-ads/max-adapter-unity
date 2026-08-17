@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dependencies>
+  <!-- Android dependency: PremiumAds MAX Adapter from JFrog -->
+  <androidPackages>
+    <androidPackage spec="net.premiumads.sdk:max-adapter:1.0.0">
+      <repositories>
+        <repository>https://repo.premiumads.net/artifactory/mobile-ads-sdk/</repository>
+      </repositories>
+    </androidPackage>
+  </androidPackages>
+
+  <!-- iOS dependency: PremiumAdsMaxAdapter from CocoaPods -->
+  <iosPods>
+    <iosPod name="PremiumAdsMaxAdapter" version="~> 1.0.0">
+      <sources>
+        <source>https://cdn.cocoapods.org/</source>
+      </sources>
+    </iosPod>
+  </iosPods>
+</dependencies>
