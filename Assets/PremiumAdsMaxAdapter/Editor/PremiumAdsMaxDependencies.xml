@@ -2,11 +2,14 @@
 <dependencies>
   <!-- Android dependency: PremiumAds MAX Adapter from JFrog -->
   <androidPackages>
-    <androidPackage spec="net.premiumads.sdk:max-adapter:1.0.0">
+    <androidPackage spec="net.premiumads.sdk:max-adapter:1.0.1">
       <repositories>
         <repository>https://repo.premiumads.net/artifactory/mobile-ads-sdk/</repository>
       </repositories>
     </androidPackage>
+    <!-- Google Mobile Ads SDK: the adapter needs 23.0.0 or newer but does not bundle it.
+         EDM4U keeps the highest version requested in the project, so this never downgrades. -->
+    <androidPackage spec="com.google.android.gms:play-services-ads:23.0.0" />
   </androidPackages>
 
   <!-- iOS dependency: PremiumAdsMaxAdapter from CocoaPods -->
